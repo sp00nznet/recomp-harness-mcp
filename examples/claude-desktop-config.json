@@ -1,0 +1,14 @@
+{
+  "//": "Add this block to your MCP client config. For Claude Desktop the file is",
+  "//2": "%APPDATA%\\Claude\\claude_desktop_config.json (Windows). Adjust the path",
+  "//3": "to index.js and set RECOMP_ROOT to wherever your recomp collection lives.",
+  "mcpServers": {
+    "recomp-harness": {
+      "command": "node",
+      "args": ["E:\\harnessmcp\\dist\\index.js"],
+      "env": {
+        "RECOMP_ROOT": "D:\\recomp"
+      }
+    }
+  }
+}

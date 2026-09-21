@@ -5,7 +5,7 @@ import * as path from "node:path";
 import { scanHarnesses, Harness } from "./scanner.js";
 import { JobManager } from "./jobs.js";
 
-export const DEFAULT_ROOT = process.env.RECOMP_ROOT || "D:\\recomp";
+export const DEFAULT_ROOT = process.env.RECOMP_ROOT || path.resolve(process.cwd(), "recomp");
 
 interface Cache {
   harnesses: Harness[];

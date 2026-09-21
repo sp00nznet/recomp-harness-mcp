@@ -4,7 +4,7 @@
 
 No emulator. No interpreter. No ROM being decoded at runtime. Just decades-old game binaries, disassembled instruction-by-instruction, lifted into C, and compiled back down into native executables that run *as if they were always meant to run on your machine.*
 
-This repo is the **control plane** for a large private collection of those projects. The harnesses themselves live on disk (default `D:\recomp`); this server is the thin, safe, structured interface that lets an agent reason about all of them at once.
+This repo is the **control plane** for a large collection of those projects. The harnesses themselves live on disk (default `<recomp-root>`); this server is the thin, safe, structured interface that lets an agent reason about all of them at once.
 
 ---
 
@@ -46,7 +46,7 @@ The catch: there are **~90 of these**, each slightly different, scattered across
                               ┌─────────────┴─────────────┐
                               ▼                            ▼
                        python lift pipeline          cmake build / run .exe
-                       (D:\recomp\flow\…)             (D:\recomp\lynx\…)
+                       (<recomp-root>\flow\…)             (<recomp-root>\lynx\…)
 ```
 
 The server **auto-discovers** harnesses by walking the collection and detecting their entry points structurally — so the catalog stays correct as you add new projects, with zero hard-coded lists. It then exposes a small, sharp set of tools:
@@ -125,8 +125,8 @@ npm run build
 Sanity-check the scanner against your collection without even touching MCP:
 
 ```bash
-node dist/cli-scan.js "D:\recomp"
-# → root: D:\recomp
+node dist/cli-scan.js "<recomp-root>"
+# → root: <recomp-root>
 #   harnesses: 90
 #   • flow  [pipeline, playable, built]
 #   • lynx/chipschallenge-lynx-recomp  [cmake, boots]
@@ -138,7 +138,7 @@ node dist/cli-scan.js "D:\recomp"
 **Claude Code:**
 
 ```bash
-claude mcp add recomp-harness -e RECOMP_ROOT=D:\recomp -- node E:\harnessmcp\dist\index.js
+claude mcp add recomp-harness -e RECOMP_ROOT=<recomp-root> -- node <install-dir>\dist\index.js
 ```
 
 **Claude Desktop** (`%APPDATA%\Claude\claude_desktop_config.json`) — see [`examples/claude-desktop-config.json`](examples/claude-desktop-config.json):
@@ -148,14 +148,14 @@ claude mcp add recomp-harness -e RECOMP_ROOT=D:\recomp -- node E:\harnessmcp\dis
   "mcpServers": {
     "recomp-harness": {
       "command": "node",
-      "args": ["E:\\harnessmcp\\dist\\index.js"],
-      "env": { "RECOMP_ROOT": "D:\\recomp" }
+      "args": ["<install-dir>\\dist\\index.js"],
+      "env": { "RECOMP_ROOT": "<recomp-root>" }
     }
   }
 }
 ```
 
-`RECOMP_ROOT` defaults to `D:\recomp` if unset.
+`RECOMP_ROOT` defaults to `./recomp` under the current directory if unset.
 
 ---
 

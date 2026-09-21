@@ -5,9 +5,9 @@
   "mcpServers": {
     "recomp-harness": {
       "command": "node",
-      "args": ["E:\\harnessmcp\\dist\\index.js"],
+      "args": ["<install-dir>\\dist\\index.js"],
       "env": {
-        "RECOMP_ROOT": "D:\\recomp"
+        "RECOMP_ROOT": "<recomp-root>"
       }
     }
   }
